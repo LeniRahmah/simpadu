@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prodi;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
@@ -15,15 +16,18 @@ class MahasiswaController extends Controller
         //
         $data = ['nama' => "Leni", 'foto' => 'leni.jpg'];
         $mahasiswa = Mahasiswa::with('prodi')->get();
-        return view('mahasiswa', compact('data', 'mahasiswa'));
+        return view('mahasiswa.index', compact('data', 'mahasiswa'));
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         //
+        $data = ['nama' => "Leni", 'foto' => 'leni.jpg'];
+        $prodi = Prodi::all();
+        return view('mahasiswa.create', compact('data', 'prodi'));
     }
 
     /**
@@ -31,7 +35,9 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except('_token');
+        Mahasiswa::create($data);
+        return redirect('/mahasiswa');
     }
 
     /**
