@@ -1,5 +1,6 @@
 @extends('template.main')
 @section('content')
+
 <!--begin::App Main-->
 <main class="app-main">
     <!--begin::App Content Header-->
@@ -34,16 +35,18 @@
                 <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h3 class="card-title">Data Mahasiswa</h3>
+                            <h3 class="card-title">Tambah Mahasiswa</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ url('mahasiswa') }}" method="post" enctype="multipart/form-data">
-                           @csrf
+                        <form action="{{ url("mahasiswa/$mahasiswa->nim") }}" method="post" 
+                            enctype="multipart/form-data">
+                          @method('put')
+                            @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="nim" class="form-label">NIM</label>
                                     <input type="text" name="nim" id="nim" 
-                                    class="form-control @error('nim')is-invalid @enderror">
+                                    class="form-control @error('nim')is-invalid @enderror" value="{{ $mahasiswa->nim }}" disabled>
                                     @error('nim')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -54,7 +57,7 @@
                                     <label for="password" class="form-label">Password</label>
                                     <input type="password" name="password" id="password" 
                                      class="form-control @error('password')is-invalid @enderror">
-                                    @error('password')
+                                     @error('password')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>  
@@ -63,7 +66,7 @@
                                 <div class="form-group">
                                     <label for="nama" class="form-label">Nama</label>
                                     <input type="text" name="nama" id="nama" 
-                                    class="form-control @error('nama')is-invalid @enderror">
+                                    class="form-control @error('nama')is-invalid @enderror" value="{{ $mahasiswa->nama }}">
                                     @error('nama')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -73,8 +76,8 @@
                                 <div class="form-group">
                                     <label for="tanggallahir" class="form-label">Tanggal Lahir</label>
                                     <input type="date" name="tanggallahir" id="tanggallahir" 
-                                     class="form-control @error('tanggallahir')is-invalid @enderror">
-                                    @error('tanggallahir')
+                                     class="form-control @error('tanggallahir')is-invalid @enderror"value="{{ $mahasiswa->tanggallahir }}">
+                                     @error('tanggallahir')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>   
@@ -83,8 +86,8 @@
                                 <div class="form-group">
                                     <label for="telpon" class="form-label">Telpon</label>
                                     <input type="text" name="telp" id="telpon"
-                                      class="form-control @error('telp')is-invalid @enderror">
-                                    @error('telp')
+                                      class="form-control @error('telp')is-invalid @enderror"value="{{ $mahasiswa->telp }}">
+                                      @error('telp')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>  
@@ -93,8 +96,8 @@
                                 <div class="form-group">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" name="email" id="email" 
-                                     class="form-control @error('email')is-invalid @enderror">
-                                    @error('email')
+                                     class="form-control @error('email')is-invalid @enderror"  value="{{ $mahasiswa->email }}">
+                                     @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>   
@@ -104,13 +107,21 @@
                                     <label for="id" class="form-label">Prodi</label>
                                     <select class="form-select" name="id" id="id">
                                         @foreach ($prodi as $p)
-                                           <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                                           <option value="{{ $p->id }}"
+                                            {{ $p['id'] == $mahasiswa->id ? 'SELECTED' :'' }}>
+                                            {{ $p->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form_group">
                                     <label class="form-label" for="foto">Upload Foto</label>
-                                    <input type="file" class="form-control" id="foto" name="foto" />
+                                    <input type="file" class="form-control @error('file') is-invalid @enderror"
+                                    id="foto" name="foto" />
+                                    @error('file')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}  
+                                         </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -121,17 +132,12 @@
                         <!-- /.card-body -->
 
                     </div>
-
+                    <!-- /.card -->
                     <!-- /.card -->
                 </div>
-                <!-- /.col -->
-                <!-- /.col -->
             </div>
-            <!-- /.row (main row) -->
+                     <!--end::Row-->
         </div>
-        <!--end::Container-->
-    </div>
-    <!--end::App Content-->
 </main>
 <!--end::App Main-->
 @endsection
