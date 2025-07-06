@@ -58,7 +58,8 @@ class MahasiswaController extends Controller
             ]
         );
         if ($request->file('foto')) {
-            $validateData['foto'] = $request->file('foto')->store('images');
+            $filePath = $request->file('foto')->store('images');
+            $validateData['foto'] = basename($filePath);
         }
         $validateData['password'] = Hash::make($validateData['password']);
         $data = array_merge($validateData, $request->only(['id']));
@@ -112,7 +113,8 @@ class MahasiswaController extends Controller
             if ($mahasiswa->foto) {
                 Storage::delete($mahasiswa->foto);
             }
-            $validateData['foto'] = $request->file('foto')->store('images');
+           $filePath = $request->file('foto')->store('images');
+            $validateData['foto'] = basename($filePath);
         }
         if ($request->input('password')) {
             $validateData['password'] = Hash::make($request->password);
