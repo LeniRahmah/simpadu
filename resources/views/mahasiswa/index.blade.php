@@ -10,12 +10,12 @@
             <!--begin::Row-->
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Dashboard</h3>
+                    <h3 class="mb-0">Mahasiswa</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                        <li class="breadcrumb-item active" aria-current="page">Mahasiswa</li>
                     </ol>
                 </div>
             </div>
@@ -49,6 +49,7 @@
                                         <th>Nama</th>
                                         <th>Foto</th>
                                         <th>Prodi</th>
+                                        <th>Email</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -60,6 +61,7 @@
                                             <td>{{  $m->nama  }}</td>
                                             <td><img src="{{ asset("storage/images/" . $m->foto) }}" width= "100px" alt=""></td>
                                             <td>{{  $m->prodi->nama  }}</td>
+                                            <td>{{  $m->email  }}</td>
                                             <td><a href="{{ url("mahasiswa/$m->nim/edit") }}" 
                                                  class="btn btn-warning">Edit</a>
                                             <form action="{{ url("mahasiswa/$m->nim") }}" method="post"
